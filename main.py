@@ -17,7 +17,14 @@ account_sid = os.getenv('TWILIO_ACCOUNT_SID')
 auth_token = os.getenv('TWILIO_AUTH_TOKEN')
 twilio_client = Client(account_sid, auth_token)
 
+@app.on_event("startup")
+def startup_event():
+    import database
+    database.init_db()
+    print("--- Database Initialized ---")
+
 @app.get("/")
+@app.head("/")
 async def root():
     return {"status": "Vyapar AI is running"}
 
