@@ -24,7 +24,7 @@ generation_config = {
 }
 
 model = genai.GenerativeModel(
-    model_name="models/gemini-flash-lite-latest",
+    model_name="gemini-1.5-flash",
     generation_config=generation_config,
 )
 
@@ -152,5 +152,7 @@ def process_request(text_input=None, media_url=None, media_type=None):
         print("Gemini Response:", cleaned_text)
         return json.loads(cleaned_text)
     except Exception as e:
+        import traceback
         print(f"Gemini/JSON Error: {e}")
+        traceback.print_exc()
         return {"intent": "error", "reply_text": "AI processing failed."}
